@@ -1,3 +1,60 @@
+ -- Steven Monteiro <https://github.com/estevaocm> Mon, 08 Jan 2018
+ 
+ turnkey-bitkey-14.2.0-qrscan-altcoins-1.09 (1) turnkey; urgency=low
+  * Upgraded:
+    - Electron Cash 3.1.2
+    - Electrum 3.0.5
+    - Electrum-LTC 3.0.5.1
+    - MyEtherWallet 3.11.2
+ 
+ turnkey-bitkey-14.2.0-qrscan-altcoins-1.08 (1) turnkey; urgency=low
+ 
+  * Added:
+    - App packages checksum verification during system build
+    - Missing signature files that could be found
+    - CryptoSeed 1.1.0
+	- Electrum-Dash (commit #6e51b7d, 2017-05-30)
+    - Ripple Wallet compatible with BIP44 private key from BIP39 seed
+  * Fixed:
+    - All app packages are identified by either version number or Github commit ID and date.
+  * Upgraded:
+  	- BIP39 Wallet 0.3.2
+  	- Bitcoin Paper Wallet #6161c39 2017-09-22
+  	- Coinb.in #c3b1a47 2018-01-06
+    - Electron Cash 3.1.1
+    - Electrum 3.0.4
+    - Electrum-LTC 3.0.4.1
+    - IOTA Seed Generator #faaae0c 2017-06-27
+    - MyEtherWallet 3.11.1.7
+    - Warp Wallet 1.0.9
+ 
+ -- Steven Monteiro <https://github.com/estevaocm> Tue, 26 Dec 2017
+ 
+ turnkey-bitkey-14.2.0-qrscan-altcoins-1.07 (1) turnkey; urgency=low
+ 
+  * Added Monero wallet generator
+  * Fixed Coinb.in for online use
+ 
+ -- Steven Monteiro <https://github.com/estevaocm> Mon, 25 Dec 2017
+
+turnkey-bitkey-14.2.0-qrscan-altcoins-1.06 (1) turnkey; urgency=low
+
+  * Upgraded Chromium browser to version 63
+  * Removed Firefox browser
+  * Organized apps to install to either /usr/local/lib (compiled)
+    or /usr/local/share (interpreted)
+  
+ -- Steven Monteiro <https://github.com/estevaocm> Thu, 21 Dec 2017
+
+turnkey-bitkey-14.2.0-qrscan-altcoins-1.05 (1) turnkey; urgency=low
+
+  * Added:
+    - Iota Paper Wallet
+    - Iota Seed Generator
+  	- Minimalist Ripple Client
+  * Modified:
+  	- Exodus wallet available offline for watching
+  
  -- Steven Monteiro <https://github.com/estevaocm> Fri, 15 Dec 2017
 
 turnkey-bitkey-14.2.0-qrscan-altcoins-1.04 (1) turnkey; urgency=low
