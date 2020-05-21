@@ -15,6 +15,7 @@ python3-pyqt5			/* electrum: qt gui interface */
 pyqt4-dev-tools			/* electrum: compile icons */
 pyqt5-dev-tools			/* electrum: compile icons */
 patch                   /* electrum: apply patches */
+libusb-1.0-0-dev		/* electrum-dash */
 
 cheese					/* required for webcam */
 qtqr					/* QR code scanner for webcam */
@@ -26,3 +27,10 @@ secure-delete
 
 florence                /* onscreen keyboard */
 at-spi2-core            /* required for florence */
+
+keepassx				/* as per feature request #52 */
+libqt5x11extras5		/* dependency for keepassxc */
+libykpers-1-1			/* dependency for keepassxc */
+
+python-psutil			/* dependency for armory */
+libstdc++6			/* dependency for armory */

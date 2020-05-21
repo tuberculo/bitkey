@@ -1,6 +1,24 @@
 BitKey is a swiss army knife of handy Bitcoin tools built on top of
 Debian, which we created to scratch our own itch.
 
+Community Branch
+================
+
+As most would be aware, BitKey is a side project of @turnkeylinux. Other
+than the initial development and a few updates here and there over the
+years, we've done a really poor job of maintaining it! :'(
+
+However, the BitKey community was lucky enough that @estevaocm has come
+along and given the project some love! Seeing as we're doing such a poor
+job and he's doing such a great one, we've asked him to take over as
+community leader and maintain this community branch of the offical BitKey
+repo.
+
+The master branch remains the "offical" BitKey release branch, but for the
+foreseeable future, the "community" branch will be the one you'll most
+likely want to use! Community ISOs (built and published by @estevaocm)
+should be avaialble from the releases area of this repo.
+
 Backstory
 =========
 
@@ -13,6 +31,13 @@ We used the TurnKey GNU/Linux build system to create a self-contained
 read-only CD/USB stick to satisfy all our Bitcoin needs. Yours too we
 hope, and if not we're open to suggestions for improvement.
 
+In December 2017, the project was forked to update all software and
+include webcam support for QR code scanning and additional altcoin wallets.
+
+In March 2018, @estevaocm has graciously agreed to lead maintence of this
+communtiy branch. His work to date has been merged from his fork, back into
+this branch.
+
 Apps: batteries included!
 =========================
 
@@ -21,23 +46,34 @@ Apps that are allowed network access in online mode:
 - Electrum with wrapper that stores wallet on a USB in a LUKS encrypted
   loopback filesystem. During creation, displays passphrase strength
   estimates such as entropy and crack time.
-- Electrum-LTC for Litecoin
-- Electron-Cash for Bitcoin Cash (BCH)
-- coinbin: swiss army knife of bitcoin tools
-- MyEtherWallet: also allows offline signing
-- Minimalistic Ripple Wallet
-- Exodus multi-coin wallet, which includes exchanging with ShapeShift
+- Electrum-LTC for Litecoin (with wrapper)
+- Electron-Cash for Bitcoin Cash (with wrapper)
+- Electrum-DASH for DASH (with wrapper)
+- Armory Wallet (with wrapper)
+- QtQR: allows QR code scanning from webcam
+- zbar-tools: alternative for QtQR
+- Exodus: multi-coin wallet, including ShapeShift exchanging (NOT OPEN SOURCE)
+- CryptoSeed: encryption for paper wallets
+- KeePassXC: password manager
+- Online Web apps:
 
-Apps that are not allowed network access even in online mode:
+  - MyEtherWallet
+  - Ripple Wallet
+  - Minimalistic Ripple Wallet
+  - Coinb.in: swiss army knife of bitcoin tools
 
-- qrcode generator: encodes anything as a qrcode
-- BIP39 paper wallet: supports 23 cryptocurrencies
-- IOTA seed generator
-- IOTA paper wallet
-- zxcvbn: realistic password strength estimator
-- warpwallet: brainwallet with strong KDF (scrypt+pbkdf2) and salt
+Offline Web apps (not allowed network access even in online mode):
+
+- Base43 decoder: decodes the strings from Electrum QR codes
+- BIP39 Mnemonic Code Converter: paper wallet seeds for 30+ cryptocurrencies (BIP39, BIP32, BIP44, BIP49, BIP84, BIP141)
 - bitaddress: paper wallet generator
 - bitcoinpaperwallet: paper wallet generator
+- IOTA paper wallet
+- IOTA seed generator
+- Monero paper wallet
+- qrcode generator: encodes anything as a qrcode
+- warpwallet: brainwallet with strong KDF (scrypt+pbkdf2) and salt
+- zxcvbn: realistic password strength estimator
 
 Advanced tools for Bitcoin ninjas:
 
@@ -46,7 +82,7 @@ Advanced tools for Bitcoin ninjas:
 Other:
 
 - Chromium web browser: runs in incognito mode by default (only
-  visible in online mode)
+  visible in online mode), updated beyond default Debian Jessie
 
 - Network manager
 - Printer manager
@@ -120,11 +156,22 @@ Two cold storage modes:
 2) cold-online: watch wallet, prepare transactions
 
    In this mode, the desktop background is blue (mnemonic for cool and informative)
-   (cold-online mode has been disabled due to incompatiblity with Electrum 3)
 
 If the instructions are carefully followed, cold storage modes creates
 an airgap which ensures that your wallet's private keys are never loaded
 into RAM on a computer connected to the Internet.
+
+**Attention:** cold-online mode has been disabled due to no longer being supported by
+Electrum 3. So your wallet's master public key must be manually exported to a
+cold-online wallet. It may be most convenient to generate the QR code for the master
+public key, then scan it from the Electrum app for Android to create a watch-only
+wallet. The watch-only wallet allows you to check your balance and history, prepare
+and broadcast transactions, but not sign transactions. If you only ever sign your
+transactions in cold-offline mode and never otherwise compromise your secret master
+private key, your funds cannot be stolen by a network attack. Since this version of
+Bitkey includes webcam support, you may use the cam to scan the QR code of the prepared
+transaction for signing, thus never exposing Bitkey or your wallet to harmful files.
+For more information, refer to http://docs.electrum.org/en/latest/coldstorage.html
 
 Medium security - Hot-online boot mode (red background)
 -------------------------------------------------------
@@ -261,11 +308,11 @@ Signing transaction step
    - Open Signed transaction in text editor
    - Open qrcode app: cut and paste hex of signed transaction
 
-8) Scan qrcode of signed transaction with phone and broadcast
+8) Scan QRCode of signed transaction with phone and broadcast
    transaction to network.
 
-9) Turn off BitKey, disconnect power source, wait 15 minutes to clear
-   RAM
+9) Turn off BitKey as soon as the QRCode has been scanned, 
+   disconnect power source, wait 15 minutes to clear RAM
 
 Desktop usage tips (Keyboard and mouse shortcuts)
 =================================================
@@ -394,7 +441,7 @@ Specifics:
   required. This allows your private keys to remain perfectly secret, aside
   from a BIOS attack. You should only communicate through QR codes, no USB
   drives aside from the one containing the keys. Verify the QR codes' contents
-  at every exchange to make sure no malware is acting. 
+  at every exchange to make sure no malware is acting.
 
 - All included components are open source
 
@@ -417,11 +464,11 @@ How to build from source
 BitKey is built with `TKLDev`_, the TurnKey GNU/Linux build system.
 
 1) Deploy TKLDev (e.g., as a local VM)
-2) SSH into TKLDev and clone bitkey git repo::
+2) SSH into TKLDev and (shallow) clone bitkey git repo::
 
 	ssh tkldev
 	cd products
-	git-clone https://github.com/bitkey/bitkey
+	git-clone --depth 1 https://github.com/bitkey/bitkey
 
 	cd bitkey
 	make
@@ -462,4 +509,3 @@ See the `guidelines and walk through`_.
 .. _TKLDev: https://www.turnkeylinux.org/tkldev
 .. _Issue Tracker: https://github.com/bitkey/bitkey/issues/
 .. _guidelines and walk through: https://github.com/turnkeylinux/tracker/blob/master/GITFLOW.rst
-

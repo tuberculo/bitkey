@@ -27,12 +27,25 @@ sudo chmod +x /usr/local/bin/electrum-ltc
 # unpack electrum-dash
 tar -zxf Electrum-DASH-*.tar.gz
 rm Electrum-DASH-*.tar.gz
+mv Electrum-DASH*/ $SHARE/electrum-dash/
+unzip electrum-dash-packages.zip -d $SHARE/electrum-dash/
+rm electrum-dash-packages.zip
 
 # install electrum-dash
-pyrcc4 electrum-dash/icons.qrc -o electrum-dash/gui/qt/icons_rc.py
-mv Electrum-DASH*/ $SHARE/electrum-dash/
+pyrcc4 $SHARE/electrum-dash/icons.qrc -o $SHARE/electrum-dash/gui/qt/icons_rc.py
+#sudo python $SHARE/electrum-dash/setup.py install
 sudo ln -s $SHARE/electrum-dash/electrum-dash /usr/local/bin/electrum-dash
 sudo chmod +x /usr/local/bin/electrum-dash
+
+# unpack TREZOR Python library
+tar -zxf trezor-*.tar.gz
+rm trezor-*.tar.gz
+
+# install TREZOR Python library
+cd trezor-*
+python setup.py install
+cd -
+rm -r trezor-*
 
 # unpack electrum
 tar -zxf Electrum-*.tar.gz
@@ -40,15 +53,19 @@ rm Electrum-*.tar.gz
 
 # install electrum
 mv Electrum-*/ $SHARE/electrum/
-sudo ln -s $SHARE//electrum/electrum /usr/local/bin/electrum
+sudo ln -s $SHARE/electrum/electrum /usr/local/bin/electrum
 sudo chmod +x /usr/local/bin/electrum
+
+# install electrum-dash dependencies
+#mkdir $SHARE/electrum-dash/packages/
+/bin/cp $SHARE/electrum/packages/* $SHARE/electrum-dash/packages/ -R  
 
 # unpack Exodus
 unzip exodus-*.zip -d .
 rm exodus-*.zip
 
 # install Exodus
-mv Exodus-*/ $LIB/exodus/
+mv Exodus*/ $LIB/exodus/
 sudo ln -s $LIB/exodus/Exodus /usr/local/bin/exodus
 sudo chmod +x /usr/local/bin/exodus
 
@@ -60,3 +77,11 @@ rm CryptoSeed*.zip
 mv CryptoSeed*/ $LIB/cryptoseed/
 sudo ln -s $LIB/cryptoseed/cryptoseed /usr/local/bin/cryptoseed
 sudo chmod +x /usr/local/bin/cryptoseed
+
+# install keepassxc
+sudo dpkg -i keepassxc*.deb
+rm keepassxc*.deb
+
+# install armory
+sudo dpkg -i armory*.deb
+rm armory*.deb
